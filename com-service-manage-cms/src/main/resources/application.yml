@@ -1,0 +1,30 @@
+server:
+  port: 31001
+spring:
+  application:
+    name: bwqc-service-manager-cms
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: bwqc_cms
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtualHost: /
+#bwqc:
+#  mq:
+    #cms客户端监控的队列名称（不同的客户端监控的队列不能重复）
+    #queue: queue_cms_postpage_01
+    #routingKey: 5a751fab6abb5044e0d19ea1 #此routingKey为门户站点ID
+#eureka:
+#  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+#    service-url: #Eurake客户端与Eurake服务端交互地址，多个中间用逗号分格
+#      defaultZone: ${EUREKA_SERVER:http://localhost:50101/eureka/,http://localhost:50102/eureka/}
+#  instance:
+#    prefer-ip-address: true #将自己的ip注册到Eureka服务中
+#    ip-address: ${IP_ADDRESS:127.0.0.1}
+#    instance-id: ${spring.application.name}:${server.port}
