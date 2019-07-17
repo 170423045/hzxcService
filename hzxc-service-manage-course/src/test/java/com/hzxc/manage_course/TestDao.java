@@ -1,4 +1,4 @@
-package com.bwqc.manage_course.dao;
+package com.hzxc.manage_course;
 
 import com.hzxc.framework.domain.course.CourseBase;
 import com.hzxc.manage_course.dao.CourseBaseRepository;
@@ -12,9 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.Optional;
 
 /**
- * @author Administrator
- * @version 1.0
- **/
+ * Created by dongf on 2019/7/17.
+ */
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class TestDao {
@@ -39,3 +38,4 @@ public class TestDao {
 
     }
 }
+
