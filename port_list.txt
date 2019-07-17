@@ -1,0 +1,19 @@
+第三方服务：
+RabbbitMQ web管理端:15672
+RabbbitMQ 通信端口:5672
+
+==============================================================
+本项目服务：
+
+前端vue服务器：11000 ————————服务器名：
+
+FDBJAWIDHQRWRHOGCNRJ
+rabbitmqctl.bat set_permissions -p / xyf ".*" ".*" ".*"
+
+
+服务注册中心：       eureka01(127.0.0.1):50101,eureka02(127.0.0.1):50102          ————————服务器名bwqc-govern-center
+
+cms后台管理服务器：31001 ————————服务器名：bwqc-service-manager-cms
+cms门户客户端：31000 ————————服务器名：bwqc-service-manager-cms-client
+
+freemarker-test：8088  ————————服务器名：freemarker-test
