@@ -26,8 +26,8 @@ public class Swagger2Configuration {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("伴我汽车api文档")
-                .description("伴我汽车api文档")
+                .title("汇知学成api文档")
+                .description("汇知学成api文档")
 //                .termsOfServiceUrl("/")
                 .version("1.0")
                 .build();
