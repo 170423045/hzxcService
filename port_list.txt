@@ -14,4 +14,9 @@ RabbbitMQ 通信端口:5672
 cms后台管理服务器：31001 ————————服务器名：bwqc-service-manager-cms
 cms门户客户端：31000 ————————服务器名：bwqc-service-manager-cms-client
 
-freemarker-test：8088  ————————服务器名：freemarker-test
+freemarker-test：8088  ————————服务器名：freemarker-testelasticsearch
+
+搜索服务:
+elasticsearch1:
+    外部访问接口：9200
+    内部访问接口：9300
