@@ -12,6 +12,12 @@
 
     <artifactId>hzxc-service-manage-course</artifactId>
     <dependencies>
+        <!--添加分页插件依赖-->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>1.2.5</version>
+        </dependency>
         <dependency>
             <groupId>com.hzxc</groupId>
             <artifactId>hzxc-service-api</artifactId>

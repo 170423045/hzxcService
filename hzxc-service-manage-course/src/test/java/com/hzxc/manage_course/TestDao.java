@@ -1,8 +1,12 @@
 package com.hzxc.manage_course;
 
 import com.hzxc.framework.domain.course.CourseBase;
+import com.hzxc.framework.domain.course.ext.CategoryNode;
+import com.hzxc.framework.domain.course.ext.TeachplanNode;
+import com.hzxc.manage_course.dao.CategoryMapper;
 import com.hzxc.manage_course.dao.CourseBaseRepository;
 import com.hzxc.manage_course.dao.CourseMapper;
+import com.hzxc.manage_course.dao.TeachPlanMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,10 @@ public class TestDao {
     CourseBaseRepository courseBaseRepository;
     @Autowired
     CourseMapper courseMapper;
+    @Autowired
+    TeachPlanMapper teachPlanMapper;
+    @Autowired
+    CategoryMapper categoryMapper;
     @Test
     public void testCourseBaseRepository(){
         Optional<CourseBase> optional = courseBaseRepository.findById("402885816240d276016240f7e5000002");
@@ -36,6 +44,16 @@ public class TestDao {
         CourseBase courseBase = courseMapper.findCourseBaseById("402885816240d276016240f7e5000002");
         System.out.println(courseBase);
 
+    }
+    @Test
+    public void test1(){
+        TeachplanNode teachplanNode = teachPlanMapper.selectList("4028e58161bcf7f40161bcf8b77c0000");
+        System.out.println(teachplanNode);
+    }
+    @Test
+    public void  test2(){
+        CategoryNode categoryList = categoryMapper.findCategoryList();
+        System.out.println(categoryList);
     }
 }
 
