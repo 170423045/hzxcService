@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hzxc.manage_course.dao.CourseMapper">
+    <resultMap id="CourseMap" type="com.hzxc.framework.domain.course.ext.CourseInfo">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="users" column="users"></result>
+        <result property="mt" column="mt"></result>
+        <result property="st" column="st"></result>
+        <result property="grade" column="grade"></result>
+        <result property="studymodel" column="studymodel"></result>
+        <result property="teachmode" column="teachmode"></result>
+        <result property="description" column="description"></result>
+        <result property="status" column="status"></result>
+        <result property="companyId" column="company_id"></result>
+        <result property="userId" column="user_id"></result>
+        <result property="pic" column="pic"></result>
+    </resultMap>
     <select id="findCourseBaseById" parameterType="java.lang.String"
             resultType="com.hzxc.framework.domain.course.CourseBase">
         select * from course_base where id = #{id}
+    </select>
+    <select id="findCourseList" resultMap="CourseMap">
+        SELECT course_base.*, (SELECT pic FROM course_pic WHERE courseid = course_base.id) pic FROM course_base
+    </select>
+    <!--聚合函数查询出数据总数-->
+    <select id="findCounts" resultType="int">
+        SELECT COUNT(id) FROM course_base
     </select>
 </mapper>
