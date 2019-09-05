@@ -7,6 +7,7 @@ import com.hzxc.framework.domain.cms.CmsTemplate;
 import com.hzxc.framework.domain.cms.request.QueryPageRequest;
 import com.hzxc.framework.domain.cms.response.CmsCode;
 import com.hzxc.framework.domain.cms.response.CmsPageResult;
+import com.hzxc.framework.domain.course.response.CmsPostPageResult;
 import com.hzxc.framework.exception.ExceptionCast;
 import com.hzxc.framework.model.response.CommonCode;
 import com.hzxc.framework.model.response.QueryResponseResult;
@@ -161,6 +162,11 @@ public class CmsServiceImpl implements CmsService {
         return new QueryResponseResult(CommonCode.SUCCESS,queryResult);
     }
 
+    /**
+     * 添加页面
+     * @param cmsPage
+     * @return
+     */
     @Override
     public CmsPageResult add(CmsPage cmsPage) {
         //根据.siteId,pageWebPath,pageName判断页面是否重复
@@ -198,6 +204,7 @@ public class CmsServiceImpl implements CmsService {
         if(one!=null){
             //准备更新数据
             //设置要修改的数据
+
             //更新模板id
             one.setTemplateId(cmsPage.getTemplateId());
             //更新所属站点
@@ -213,7 +220,7 @@ public class CmsServiceImpl implements CmsService {
             //更新数据访问接口
             one.setDataUrl(cmsPage.getDataUrl());
             cmsPageMapper.save(one);
-            return new CmsPageResult(CommonCode.SUCCESS,cmsPage);
+            return new CmsPageResult(CommonCode.SUCCESS,one);
         }
         return new CmsPageResult(CommonCode.FAIL,null);
     }
@@ -248,11 +255,12 @@ public class CmsServiceImpl implements CmsService {
     public String getHtml(String id){
         //获取数据模型
         Map model = this.getModelData(id);
-
+        //获取页面模板
         String template = this.getPageTemplate(id);
         if (template==null){
             ExceptionCast.cast(CmsCode.CMS_GENERATEHTML_TEMPLATEISNULL);
         }
+        //进行页面静态化
         String pageHtml = this.getPageHtml(template, model);
         if (pageHtml==null){
             ExceptionCast.cast(CmsCode.CMS_GENERATEHTML_HTMLISNULL);
@@ -260,6 +268,11 @@ public class CmsServiceImpl implements CmsService {
         return pageHtml;
     }
 
+    /**
+     * 发布页面
+     * @param id
+     * @return
+     */
     @Override
     public ResponseResult postPage(String id) {
 
@@ -276,6 +289,46 @@ public class CmsServiceImpl implements CmsService {
 
         return new ResponseResult(CommonCode.SUCCESS);
     }
+
+
+    @Override
+    public CmsPageResult save(CmsPage cmsPage) {
+        if (cmsPage==null){
+            ExceptionCast.cast(CmsCode.CMS_ADDPAGE_EXISTSNAME);
+        }
+        CmsPage cmsPage1 = cmsPageMapper.findBySiteIdAndPageNameAndPageWebPath(cmsPage.getSiteId(),
+                cmsPage.getPageName(), cmsPage.getPageWebPath());
+        if (cmsPage1!=null){
+            return this.edit(cmsPage1.getPageId(), cmsPage);
+        }
+
+        return this.add(cmsPage);
+    }
+
+    @Override
+    public CmsPostPageResult postPageQuick(CmsPage cmsPage) {
+        CmsPageResult save = save(cmsPage);
+        if (!save.isSuccess()){
+            ExceptionCast.cast(CommonCode.FAIL);
+        }
+        ResponseResult responseResult = postPage(save.getCmsPage().getPageId());
+        if (!responseResult.isSuccess()){
+            ExceptionCast.cast(CmsCode.CMS_GENERATEHTML_SAVEHTMLERROR);
+        }
+        CmsSite cmsSite = getCmsSiteById(cmsPage.getSiteId());
+
+        String webPagePath = cmsSite.getSiteDomain()+cmsSite.getSiteWebPath() + cmsPage.getPageWebPath() + cmsPage.getPageName();
+        return new CmsPostPageResult(CommonCode.SUCCESS,webPagePath);
+    }
+
+    private CmsSite getCmsSiteById(String siteId) {
+        Optional<CmsSite> siteOptional = cmsSiteMapper.findById(siteId);
+        if (!siteOptional.isPresent()){
+            ExceptionCast.cast(CmsCode.CMS_FIND_PAGEISNULL);
+        }
+        return siteOptional.get();
+    }
+
     /**
      *
      * 将静态化的html文件保存到GridFS中
@@ -296,7 +349,7 @@ public class CmsServiceImpl implements CmsService {
 
     /**
      *
-     * 想消息队列发送发布信息
+     * 向消息队列发送发布信息
      * @param cmsPage
      *
      */

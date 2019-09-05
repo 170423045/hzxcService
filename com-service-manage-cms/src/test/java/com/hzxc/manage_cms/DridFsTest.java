@@ -44,15 +44,15 @@ public class DridFsTest {
     /**
      * 从数据库中将模板取出
      *
-     * *//**
+     *
      * 将模板文件存入数据库
      *
      * */
     @Test
     public void test1() throws FileNotFoundException {
-        File file=new File("E:\\1afile\\index_banner.ftl");
+        File file=new File("E:\\hzxc\\hzxcService\\test-freemarker\\src\\main\\resources\\templates\\course.ftl");
         FileInputStream fileInputStream=new FileInputStream(file);
-        ObjectId objectId = gridFsTemplate.store(fileInputStream, "index_banner.ftl");
+        ObjectId objectId = gridFsTemplate.store(fileInputStream, "course.ftl");
         System.out.println(objectId);
     }
     @Test

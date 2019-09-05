@@ -4,6 +4,7 @@ import com.hzxc.api.cms.CmsPageControllerApi;
 import com.hzxc.framework.domain.cms.CmsPage;
 import com.hzxc.framework.domain.cms.request.QueryPageRequest;
 import com.hzxc.framework.domain.cms.response.CmsPageResult;
+import com.hzxc.framework.domain.course.response.CmsPostPageResult;
 import com.hzxc.framework.model.response.QueryResponseResult;
 import com.hzxc.framework.model.response.ResponseResult;
 import com.hzxc.manage_cms.service.CmsService;
@@ -18,11 +19,10 @@ import java.util.List;
 @RequestMapping("/cms/page")
 public class CmsController implements CmsPageControllerApi {
 
-   @Autowired
+    @Autowired
     CmsService cmsService;
 
     /**
-     *
      * @param page
      * @param size
      * @param queryPageRequest
@@ -31,7 +31,7 @@ public class CmsController implements CmsPageControllerApi {
     //分页查询cms列表
     @Override
     @GetMapping("/list/{page}/{size}")
-    public QueryResponseResult findPageList(@PathVariable("page") Integer page, @PathVariable("size")Integer size, QueryPageRequest queryPageRequest) {
+    public QueryResponseResult findPageList(@PathVariable("page") Integer page, @PathVariable("size") Integer size, QueryPageRequest queryPageRequest) {
         /*QueryResult<CmsPage> queryResult=new QueryResult<>();
         List<CmsPage> list=new ArrayList<>();
         CmsPage cmsPage=new CmsPage();
@@ -41,7 +41,7 @@ public class CmsController implements CmsPageControllerApi {
         QueryResponseResult queryResponseResult=new QueryResponseResult(CommonCode.SUCCESS,queryResult);
         System.out.println(queryResponseResult);*/
 
-        return cmsService.findPageList(page,size,queryPageRequest);
+        return cmsService.findPageList(page, size, queryPageRequest);
     }
 
     //获取站点列表
@@ -50,6 +50,21 @@ public class CmsController implements CmsPageControllerApi {
     public QueryResponseResult findSiteList() {
         return cmsService.findSiteList();
     }
+
+    //添加页面信息
+    @Override
+    @PostMapping("/save")
+    public CmsPageResult save(@RequestBody CmsPage cmsPage) {
+
+        return cmsService.save(cmsPage);
+    }
+
+    @Override
+    @PostMapping("/postPageQuick")
+    public CmsPostPageResult postPageQuick(@RequestBody CmsPage cmsPage) {
+        return cmsService.postPageQuick(cmsPage);
+    }
+
 
     //添加页面信息
     @Override
@@ -70,7 +85,7 @@ public class CmsController implements CmsPageControllerApi {
     @Override
     @PutMapping("/edit/{id}")
     public CmsPageResult edit(@PathVariable String id, @RequestBody CmsPage cmsPage) {
-        return cmsService.edit(id,cmsPage);
+        return cmsService.edit(id, cmsPage);
     }
 
     //删除页面

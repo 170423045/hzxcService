@@ -21,10 +21,19 @@
         select * from course_base where id = #{id}
     </select>
     <select id="findCourseList" resultMap="CourseMap">
-        SELECT course_base.*, (SELECT pic FROM course_pic WHERE courseid = course_base.id) pic FROM course_base
+        SELECT
+            *
+        FROM
+	      course_base a
+	      LEFT JOIN
+	      course_pic p
+	      ON
+	      a.id = p.courseid
+	    where
+	      a.company_id=#{companyId}
     </select>
     <!--聚合函数查询出数据总数-->
-    <select id="findCounts" resultType="int">
+ <!--   <select id="findCounts" resultType="int">
         SELECT COUNT(id) FROM course_base
-    </select>
+    </select>-->
 </mapper>

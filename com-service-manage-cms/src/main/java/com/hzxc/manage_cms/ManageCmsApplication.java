@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
-//@EnableDiscoveryClient //一个eureka从eureka server中发现服务
+@EnableDiscoveryClient //一个eureka从eureka server中发现服务
 @SpringBootApplication
 @EntityScan("com.hzxc.framework.domain.cms")//扫描实体类
 @ComponentScan(basePackages = "com.hzxc.api")//扫描接口

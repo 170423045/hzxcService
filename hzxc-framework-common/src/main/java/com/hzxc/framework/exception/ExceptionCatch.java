@@ -27,7 +27,7 @@ public class ExceptionCatch {
     /**
      * google提供的一个map集合
      * 特点：一旦生成则无法更改，线程安全
-     *作用（本项目）:指定非自定义异常的一些错误提示代码
+     * 作用（本项目）:指定非自定义异常的一些错误提示代码
      * */
     protected static ImmutableMap<Class<? extends Throwable>, ResultCode> immutableMap;
     /**

@@ -18,7 +18,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EntityScan("com.hzxc.framework.domain.cms")//扫描实体类
 @ComponentScan(basePackages = "com.hzxc.framework")//扫描通用包
 @ComponentScan(basePackages = "com.hzxc.cms_manage_client")//扫描通用包
-public class CmsManageClientApplication {
+public class  CmsManageClientApplication {
     public static void main(String[] args) {
         SpringApplication.run(CmsManageClientApplication.class,args);
     }

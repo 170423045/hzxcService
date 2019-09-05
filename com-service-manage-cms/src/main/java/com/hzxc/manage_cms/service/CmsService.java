@@ -3,6 +3,7 @@ package com.hzxc.manage_cms.service;
 import com.hzxc.framework.domain.cms.CmsPage;
 import com.hzxc.framework.domain.cms.request.QueryPageRequest;
 import com.hzxc.framework.domain.cms.response.CmsPageResult;
+import com.hzxc.framework.domain.course.response.CmsPostPageResult;
 import com.hzxc.framework.model.response.QueryResponseResult;
 import com.hzxc.framework.model.response.ResponseResult;
 import org.springframework.stereotype.Service;
@@ -35,4 +36,8 @@ public interface CmsService {
     String getHtml(String id);
 
     ResponseResult postPage(String id);
+
+    CmsPageResult save(CmsPage cmsPage);
+
+    CmsPostPageResult postPageQuick(CmsPage cmsPage);
 }

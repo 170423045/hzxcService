@@ -11,5 +11,5 @@ import lombok.ToString;
 @ToString
 public class CourseListRequest extends RequestData {
     //公司Id
-    private String companyId;
+    private String companyId="";
 }

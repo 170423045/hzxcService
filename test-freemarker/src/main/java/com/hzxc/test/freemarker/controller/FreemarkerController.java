@@ -23,6 +23,15 @@ public class FreemarkerController {
 
     @Autowired
     RestTemplate restTemplate;
+    //
+    @RequestMapping("/course")
+    public String course(Map<String,Object> map){
+
+        Map model = restTemplate.getForObject("http://localhost:31200/course/courseview/4028e581617f945f01617f9dabc40000", Map.class);
+
+        map.putAll(model);
+        return "course";
+    }
     @RequestMapping("/banner")
     public String banner(Map<String,Object> map){
 
